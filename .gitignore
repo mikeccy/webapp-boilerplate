@@ -1,5 +1,8 @@
 # Packaged Node Modules
 node_modules/
 
+# Generated css from less
+public/css/*.css
+
 # Mac Specific
 .DS_Store
