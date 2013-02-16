@@ -2,7 +2,7 @@
 node_modules/
 
 # Generated css from less
-public/css/*.css
+public/css/less/*.css
 
 # Mac Specific
 .DS_Store
