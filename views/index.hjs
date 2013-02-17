@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>{{ title }}</title>
+    <link rel='stylesheet' href='/css/bootstrap.min.css' />
+    <link rel='stylesheet' 
+          href='/css/bootstrap-responsive.min.css' />
+    <link rel='stylesheet' href='/css/less/customstyle.css' />
+  </head>
+  <body>
+    <div class="text-right">
+      <h1>{{ title }}</h1>
+      <p class="lead">Welcome to {{ title }}</p>
+      <i class="icon-search"></i>
+    </div>
+    <div class="container-fluid">
+      <div class="row-fluid">
+        <div class="span2">
+          <!--Sidebar content-->
+        </div>
+        <div class="span10">
+          <!--Body content-->
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
