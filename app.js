@@ -33,8 +33,12 @@ app.configure(function(){
 });
 
 app.configure('development', function(){
+  console.log('Init development settings');
   app.use(express.errorHandler());
   
+  // TODO
+  // add watch folder and precompile templates
+
   // test precompile
   // var rawTemplate = '<p>Hello {{name}}</p>{{#if yeah}}<p>Oh {{yeah}}</p>{{/if}}';
   // var compiledTemplate = hbs.handlebars.precompile(rawTemplate);
@@ -51,6 +55,7 @@ app.configure('development', function(){
 });
 
 app.configure('production', function(){
+  console.log('Init production settings');
   app.use(express.errorHandler());
 });
 
