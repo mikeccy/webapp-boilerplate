@@ -3,25 +3,51 @@
   <head>
     <title>{{ title }}</title>
     <link rel='stylesheet' href='/css/bootstrap.min.css' />
-    <link rel='stylesheet' 
-          href='/css/bootstrap-responsive.min.css' />
     <link rel='stylesheet' href='/css/less/customstyle.css' />
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/underscore-min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/backbone-min.js"></script>
   </head>
   <body>
+
     <div class="text-right">
       <h1>{{ title }}</h1>
       <p class="lead">Welcome to {{ title }}</p>
-      <i class="icon-search"></i>
     </div>
+
+    <div class="navbar">
+      <div class="navbar-inner">
+        <ul class="nav">
+          <li class="active"><a href="#">Home</a></li>
+          <li><a href="#">Link</a></li>
+          <li><a href="#">Link</a></li>
+        </ul>
+        <form class="navbar-search pull-right">
+          <i class="icon-search"></i>
+          <input type="text" class="search-query" placeholder="Search" />
+        </form>
+      </div>
+    </div>
+
     <div class="container-fluid">
       <div class="row-fluid">
         <div class="span2">
-          <!--Sidebar content-->
+          <ul class="nav nav-pills nav-stacked">
+            <li class="active"><a href="#">Home</a></li>
+            <li><a href="#">Profile</a></li>
+            <li><a href="#">Message</a></li>
+          </ul>
         </div>
         <div class="span10">
-          <!--Body content-->
+          <ul class="nav nav-pills">
+            <li class="active"><a href="#">Home</a></li>
+            <li><a href="#">Profile</a></li>
+            <li><a href="#">Message</a></li>
+          </ul>
         </div>
       </div>
     </div>
+
   </body>
 </html>
