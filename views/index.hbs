@@ -2,25 +2,26 @@
 <html>
   <head>
     <title>{{ title }}</title>
+    {{! less css always minified }}
+    <link rel='stylesheet' href='/css/less/style.css' />
     {{#if dev}}
     {{! if development use unminified }}
     <link rel='stylesheet' href='/css/bootstrap.css' />
-    <link rel='stylesheet' href='/css/less/style.css' />
     <script src="/js/jquery-1.9.1.js"></script>
     <script src="/js/underscore.js"></script>
     <script src="/js/bootstrap.js"></script>
     <script src="/js/backbone.js"></script>
     <script src="/js/jstorage.js"></script>
+    <!--<script type="text/javascript" src="/js/hbs-templates.js"></script>-->
     {{else}}
     {{! if production use minified }}
     <link rel='stylesheet' href='/css/bootstrap.min.css' />
-    <link rel='stylesheet' href='/css/less/style.css' />
     <script src="/js/jquery-1.9.1.min.js"></script>
     <script src="/js/underscore-min.js"></script>
     <script src="/js/bootstrap.min.js"></script>
     <script src="/js/backbone-min.js"></script>
     <script src="/js/jstorage.min.js"></script>
-    <!--<script type="text/javascript" src="/js/hbs-templates.js"></script>-->
+    <!--<script type="text/javascript" src="/js/hbs-templates.min.js"></script>-->
     {{/if}}
   </head>
   <body>
