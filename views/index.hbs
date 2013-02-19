@@ -3,7 +3,7 @@
   <head>
     <title>{{ title }}</title>
     {{! less css always minified }}
-    <link rel='stylesheet' href='/css/less/style.css' />
+    <link rel='stylesheet' href='/css/less/index.css' />
     {{#if dev}}
     {{! if development use unminified }}
     <link rel='stylesheet' href='/css/bootstrap.css' />
@@ -49,12 +49,16 @@
       <div class="row-fluid">
         <div class="span2">
           <ul class="nav nav-pills nav-stacked">
-            {{> apps}}
+            {{#each apps}}
+              <li><a href="{{href}}">{{name}}</a></li>
+            {{/each}}
           </ul>
         </div>
         <div class="span10">
           <ul class="nav nav-pills">
-            {{> apps}}
+            {{#each apps}}
+              <li><a href="{{href}}">{{name}}</a></li>
+            {{/each}}
           </ul>
         </div>
       </div>

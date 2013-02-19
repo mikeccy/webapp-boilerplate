@@ -14,8 +14,8 @@ var fs = require('fs')
   , hbs = require('hbs')
   , partialsDir = __dirname + '/views/partials/';
 
-hbs.registerPartial('apps', fs.readFileSync(partialsDir + 'apps.hbs',
-                                            'utf8'));
+//hbs.registerPartial('apps', fs.readFileSync(partialsDir + 'apps.hbs',
+//                                            'utf8'));
 
 var app = express();
 
