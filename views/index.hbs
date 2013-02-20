@@ -4,6 +4,7 @@
     <title>{{ title }}</title>
     {{! less css always minified }}
     <link rel='stylesheet' href='/css/less/index.css' />
+    <link rel='stylesheet' href='/css/less/apps/chatroom.css' />
     {{#if dev}}
     {{! if development use unminified }}
     <link rel='stylesheet' href='/css/bootstrap.css' />
@@ -12,6 +13,14 @@
     <script src="/js/bootstrap.js"></script>
     <script src="/js/backbone.js"></script>
     <script src="/js/jstorage.js"></script>
+
+    <script src='/socket.io/socket.io.js' type='text/javascript'></script>
+    <script src='/js/apps/chatroom-client.js' type='text/javascript'></script>
+    
+    <script src="/js/handlebars-1.0.rc.1.min.js"></script>
+    <script type="text/javascript" src="/js/apps/chatroom-tpl.js"></script>
+    <script src='/js/apps/chatroom-ui.js' type='text/javascript'></script>
+
     <!--<script type="text/javascript" src="/js/hbs-templates.js"></script>-->
     {{else}}
     {{! if production use minified }}
@@ -44,24 +53,36 @@
         </form>
       </div>
     </div>
-
-    <div class="container-fluid">
-      <div class="row-fluid">
-        <div class="span2">
-          <ul class="nav nav-pills nav-stacked">
-            {{#each apps}}
-              <li><a href="{{href}}">{{name}}</a></li>
-            {{/each}}
-          </ul>
-        </div>
-        <div class="span10">
+    
+    <div id="container">
+      <div id="sidebar-left">
+        <ul class="nav nav-pills nav-stacked">
+          {{#each apps}}
+            <li><a href="{{href}}">{{name}}</a></li>
+          {{/each}}
+        </ul>
+      </div>
+      
+      <div id="mid-right">
+        <div id="main">
+        
           <ul class="nav nav-pills">
             {{#each apps}}
               <li><a href="{{href}}">{{name}}</a></li>
             {{/each}}
           </ul>
+          
+          <div id='app-content'>
+          </div>
+
         </div>
+
+        <div id="sidebar-right">
+        </div>
+      
       </div>
+
+      <div id="footer"></div>
     </div>
 
   </body>

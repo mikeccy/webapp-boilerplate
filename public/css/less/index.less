@@ -1,21 +1,73 @@
-.box-shadow (@x: 0px, @y: 3px, @blur: 5px, @alpha: 0.5) {
-    -webkit-box-shadow: @x @y @blur rgba(0, 0, 0, @alpha);
-    -moz-box-shadow: @x @y @blur rgba(0, 0, 0, @alpha);
-    box-shadow: @x @y @blur rgba(0, 0, 0, @alpha);
+@sidebar-shadow: '../../../img/ui/index/sidebar-shadow.png';
+@mainpanel-height: 500px;
+
+.sidebar-background(@side: left, @imgurl: @sidebar-shadow) {
+  background-image: url(@imgurl);
+  background-color: #ececec;
+  background-position: top @side;
+  background-position-x: 100%;
+  background-position-y: 0%;
+  background-repeat: repeat-y;
+  .sidebar-background-helper(@side);
 }
 
-.reflect (@length: 50%, @opacity: 0.2){
-    -webkit-box-reflect: below 0px -webkit-gradient(linear, left top, left bottom, from(transparent), color-stop(@length, transparent), to(rgba(255,255,255,@opacity)));
+.sidebar-background-helper(@side) when (@side = right) {
+  .horizontal-flip-image();
 }
 
-.container-fluid .row-fluid .span2 {
-	background-color: #dceaf4;
-	height: 300px;
-	.box-shadow(5px, 5px, 6px, 0.3);
+.horizontal-flip-image() {
+  -moz-transform: scaleX(-1);
+  -o-transform: scaleX(-1);
+  -webkit-transform: scaleX(-1);
+  transform: scaleX(-1);
+  filter: FlipH;
+  -ms-filter: "FlipH";
 }
 
-.container-fluid .row-fluid .span10 {
-	background-color: #bbd8e9;
-	height: 300px;
-	.reflect(20%, 0.2);
+.box-shadow (@x: 0px, @y: 0px, @blur: 0px, @alpha: 0.5) {
+  -webkit-box-shadow: inset @x @y @blur rgba(0, 0, 0, @alpha);
+  -moz-box-shadow: inset @x @y @blur rgba(0, 0, 0, @alpha);
+  box-shadow: inset @x @y @blur rgba(0, 0, 0, @alpha);
+}
+
+#container {
+  width: 100%;
+  background: white;
+}
+
+#sidebar-left {
+  width: 10%;
+  height: @mainpanel-height;
+  float: left;
+  .sidebar-background;
+}
+
+#mid-right {
+  width: 90%;
+  height: @mainpanel-height;
+  float: right;
+}
+
+#sidebar-right {
+  width: 10%;
+  height: @mainpanel-height;
+  float: right;
+  .sidebar-background(right);
+}
+
+#app-content {
+  width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#footer {
+clear: both;
+background: black;
+}
+
+#main {
+  width: 90%;
+  height: @mainpanel-height;
+  float: left;
 }
