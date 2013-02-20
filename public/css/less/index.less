@@ -1,9 +1,23 @@
-@sidebar-shadow: '../../../img/ui/index/sidebar-shadow.png';
-@mainpanel-height: 500px;
+/* Variable definition */
 
-.sidebar-background(@side: left, @imgurl: @sidebar-shadow) {
+@sidebar-shadow: '../../../img/ui/index/sidebar-shadow.png';
+@sidebar-color: #eeeeee;
+
+@left-sidebar-width: 150px;
+@right-sidebar-width: @left-sidebar-width;
+@min-app-width: 724px; // min supported width is 1024px total
+@min-page-width: 1024px;
+
+/* Mixin definition */
+
+/**
+ * Mixin to generate sidebar background and shadow using png
+ */
+.sidebar-background(@side: left, 
+                    @imgurl: @sidebar-shadow, 
+                    @back-color: @sidebar-color) {
   background-image: url(@imgurl);
-  background-color: #ececec;
+  background-color: @back-color;
   background-position: top @side;
   background-position-x: 100%;
   background-position-y: 0%;
@@ -11,10 +25,16 @@
   .sidebar-background-helper(@side);
 }
 
+/**
+ * If shadow is on the right filp the shadow img
+ */
 .sidebar-background-helper(@side) when (@side = right) {
   .horizontal-flip-image();
 }
 
+/**
+ * Flip image horizontally
+ */
 .horizontal-flip-image() {
   -moz-transform: scaleX(-1);
   -o-transform: scaleX(-1);
@@ -25,49 +45,82 @@
 }
 
 .box-shadow (@x: 0px, @y: 0px, @blur: 0px, @alpha: 0.5) {
-  -webkit-box-shadow: inset @x @y @blur rgba(0, 0, 0, @alpha);
-  -moz-box-shadow: inset @x @y @blur rgba(0, 0, 0, @alpha);
-  box-shadow: inset @x @y @blur rgba(0, 0, 0, @alpha);
+  -webkit-box-shadow: @x @y @blur rgba(0, 0, 0, @alpha);
+  -moz-box-shadow: @x @y @blur rgba(0, 0, 0, @alpha);
+  box-shadow: @x @y @blur rgba(0, 0, 0, @alpha);
 }
 
+/* Bootstrap customizations */
+
+body {
+  padding: 0;
+}
+
+.nav {
+  margin-bottom: 0px;
+}
+
+.navbar {
+  margin-bottom: 0px; // fix due to media-query ?
+}
+
+.navbar-inner {
+  border-radius: 0px;
+}
+
+.dropdown-menu {
+  max-height: 400px;
+  overflow: hidden;
+  overflow-y: auto;
+}
+
+/* Actual css definition */
+
+html, body {
+  min-width: @min-page-width;
+
+  height: 100%; /* extend height to bottom window */
+}
+
+// Extend height to bottom window
+// http://css-tricks.com/fluid-width-equal-height-columns/
 #container {
-  width: 100%;
-  background: white;
+  overflow: hidden; /* extend height to bottom window */
+
+  height: auto !important; /* fix android chrome height issue */
+  min-height: 100%; /* real browsers */
+  height: 100%; /* IE6: treaded as min-height*/
+}
+
+.container-col {
+  margin-bottom: -99999px; /* extend height to bottom window */
+  padding-bottom: 99999px; /* extend height to bottom window */
 }
 
 #sidebar-left {
-  width: 10%;
-  height: @mainpanel-height;
+  width: @left-sidebar-width;
   float: left;
-  .sidebar-background;
+  .sidebar-background(left);
 }
 
 #mid-right {
-  width: 90%;
-  height: @mainpanel-height;
-  float: right;
+}
+
+#mid {
+  float: left;
 }
 
 #sidebar-right {
-  width: 10%;
-  height: @mainpanel-height;
+  width: @right-sidebar-width;
   float: right;
   .sidebar-background(right);
 }
 
 #app-content {
-  width: 800px;
-  margin-left: auto;
-  margin-right: auto;
+  margin-top: 10px;
+  margin-left: 10px;
+  margin-right: 10px;
 }
 
 #footer {
-clear: both;
-background: black;
-}
-
-#main {
-  width: 90%;
-  height: @mainpanel-height;
-  float: left;
 }
