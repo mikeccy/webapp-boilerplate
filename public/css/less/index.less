@@ -11,6 +11,31 @@
 /* Mixin definition */
 
 /**
+ * Extend some height of div to bottom
+ */
+.extend-full-height0(@type) when (@type = html), (@type = body) {
+  height: 100%;
+}
+
+.extend-full-height1(@type) when (@type = container) {
+  overflow: hidden; /* use with margin and padding */
+  height: auto !important; /* fix android chrome height issue */
+  min-height: 100%; /* real browsers */
+  height: 100%; /* IE6: treaded as min-height*/
+}
+
+// Extend height to bottom window
+// http://css-tricks.com/fluid-width-equal-height-columns/
+// http://peterned.home.xs4all.nl/examples/csslayout1.html
+
+.extend-full-height2(@type) when (@type = cols-in-container) {
+  margin-bottom: -99999px;
+  padding-bottom: 99999px;
+}
+
+// End extend-full-height
+
+/**
  * Mixin to generate sidebar background and shadow using png
  */
 .sidebar-background(@side: left, 
@@ -44,6 +69,9 @@
   -ms-filter: "FlipH";
 }
 
+/**
+ * Generate box shadow
+ */
 .box-shadow (@x: 0px, @y: 0px, @blur: 0px, @alpha: 0.5) {
   -webkit-box-shadow: @x @y @blur rgba(0, 0, 0, @alpha);
   -moz-box-shadow: @x @y @blur rgba(0, 0, 0, @alpha);
@@ -76,25 +104,21 @@ body {
 
 /* Actual css definition */
 
-html, body {
+html {
   min-width: @min-page-width;
-
-  height: 100%; /* extend height to bottom window */
+  .extend-full-height0(html);
 }
 
-// Extend height to bottom window
-// http://css-tricks.com/fluid-width-equal-height-columns/
-#container {
-  overflow: hidden; /* extend height to bottom window */
+body {
+  .extend-full-height0(body);
+}
 
-  height: auto !important; /* fix android chrome height issue */
-  min-height: 100%; /* real browsers */
-  height: 100%; /* IE6: treaded as min-height*/
+#container {
+  .extend-full-height1(container);
 }
 
 .container-col {
-  margin-bottom: -99999px; /* extend height to bottom window */
-  padding-bottom: 99999px; /* extend height to bottom window */
+  .extend-full-height2(cols-in-container);
 }
 
 #sidebar-left {
