@@ -108,7 +108,7 @@ body {
 }
 
 .navbar {
-  margin-bottom: 0px; // fix due to media-query ?
+  margin-bottom: 0px;
 }
 
 .navbar-inner {
@@ -146,11 +146,12 @@ body {
  * Reference: http://matthewjamestaylor.com/blog/holy-grail-no-quirks-mode.htm
  */
 #colmask {
-  position: relative; /* This fixes the IE7 overflow hidden bug and stops the layout jumping out of place */
+  position: relative; /* This fixes the IE7 overflow hidden bug and stops the
+                         layout jumping out of place */
   clear: both;
   float: left;
-  width: 100%;        /* width of whole page */
-  overflow: hidden;   /* This chops off any overhanging divs */
+  width: 100%;
+  overflow: hidden;
 }
 
 #colmid {
