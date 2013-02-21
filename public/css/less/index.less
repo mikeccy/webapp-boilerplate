@@ -1,66 +1,85 @@
 /* Variable definition */
 
-@sidebar-shadow: '../../../img/ui/index/sidebar-shadow.png';
+@sidebar-shadow-left: '../../../img/ui/index/sidebar-shadow-left.png';
+@sidebar-shadow-right: '../../../img/ui/index/sidebar-shadow-right.png';
 @sidebar-color: #eeeeee;
-
 @left-sidebar-width: 150px;
-@right-sidebar-width: @left-sidebar-width;
-@min-app-width: 724px; // min supported width is 1024px total
-@min-page-width: 1024px;
+@right-sidebar-width: 200px;
+
+@min-page-width: 1024px; /* min supported width is 1024px */
+@min-app-width: (@min-page-width - @left-sidebar-width - @right-sidebar-width);
 
 /* Mixin definition */
 
 /**
- * Extend some height of div to bottom
+ * Cross browser min-height implementation
+ */
+.min-height(@height: 100%) {
+  min-height: @height;
+  height:auto !important;
+  height: @height;
+}
+
+/**
+ * Cross browser min-height implementation
+ */
+.min-width(@width: 100%) {
+  min-width: @width;
+  width: auto !important;
+  width: @width;
+}
+
+/**
+ * Mixins to achieve
+ * Fluid Width Equal Height Columns
+ * http://css-tricks.com/fluid-width-equal-height-columns/
+ * http://peterned.home.xs4all.nl/examples/csslayout1.html
  */
 .extend-full-height0(@type) when (@type = html), (@type = body) {
   height: 100%;
 }
 
 .extend-full-height1(@type) when (@type = container) {
-  overflow: hidden; /* use with margin and padding */
-  height: auto !important; /* fix android chrome height issue */
-  min-height: 100%; /* real browsers */
-  height: 100%; /* IE6: treaded as min-height*/
+  overflow: hidden;  /* use with margin and padding */
+  .min-height(100%);
 }
-
-// Extend height to bottom window
-// http://css-tricks.com/fluid-width-equal-height-columns/
-// http://peterned.home.xs4all.nl/examples/csslayout1.html
 
 .extend-full-height2(@type) when (@type = cols-in-container) {
   margin-bottom: -99999px;
   padding-bottom: 99999px;
 }
 
-// End extend-full-height
+/* End extend-full-height */
 
 /**
  * Mixin to generate sidebar background and shadow using png
  */
 .sidebar-background(@side: left, 
-                    @imgurl: @sidebar-shadow, 
+                    @imgurl: @sidebar-shadow-left, 
                     @back-color: @sidebar-color) {
   background-image: url(@imgurl);
   background-color: @back-color;
-  background-position: top @side;
-  background-position-x: 100%;
+  background-position: top left;
   background-position-y: 0%;
   background-repeat: repeat-y;
   .sidebar-background-helper(@side);
 }
 
 /**
- * If shadow is on the right filp the shadow img
+ * If shadow is on the right change image location
  */
 .sidebar-background-helper(@side) when (@side = right) {
-  .horizontal-flip-image();
+  background-position-x: 0%;
+}
+
+.sidebar-background-helper(@side) when (@side = left) {
+  background-position-x: 100%;
 }
 
 /**
- * Flip image horizontally
+ * Flip div horizontally
  */
-.horizontal-flip-image() {
+.horizontal-flip() {
   -moz-transform: scaleX(-1);
   -o-transform: scaleX(-1);
   -webkit-transform: scaleX(-1);
@@ -104,8 +123,9 @@ body {
 
 /* Actual css definition */
 
+/* Fluid Width Equal Height Columns */
 html {
-  min-width: @min-page-width;
+  .min-width(@min-page-width);
   .extend-full-height0(html);
 }
 
@@ -113,7 +133,7 @@ body {
   .extend-full-height0(body);
 }
 
-#container {
+.container {
   .extend-full-height1(container);
 }
 
@@ -121,29 +141,72 @@ body {
   .extend-full-height2(cols-in-container);
 }
 
-#sidebar-left {
-  width: @left-sidebar-width;
+/** 
+ * Multi Column Layout Cross Browser Support
+ * Reference: http://matthewjamestaylor.com/blog/holy-grail-no-quirks-mode.htm
+ */
+#colmask {
+  position: relative; /* This fixes the IE7 overflow hidden bug and stops the layout jumping out of place */
+  clear: both;
   float: left;
-  .sidebar-background(left);
+  width: 100%;        /* width of whole page */
+  overflow: hidden;   /* This chops off any overhanging divs */
 }
 
-#mid-right {
-}
-
-#mid {
+#colmid {
   float: left;
+  width: 200%;
+  position: relative;
+  left: @left-sidebar-width;
 }
 
-#sidebar-right {
-  width: @right-sidebar-width;
+#colright {
+  float: left;
+  width: 100%;
+  position: relative;
+  left: 50%;
+  margin-left: -(@left-sidebar-width + @right-sidebar-width);
+}
+
+#col1wrap {
   float: right;
-  .sidebar-background(right);
+  width: 50%;
+  position: relative;
+  right: 100%;
 }
 
-#app-content {
+#col1pad {
+  margin-left: (@left-sidebar-width + @right-sidebar-width);
+  overflow: hidden;
+}
+
+#col1 {
+  width: 100%;
+  overflow: hidden;
+}
+
+#col1 #app-content {
   margin-top: 10px;
   margin-left: 10px;
   margin-right: 10px;
+}
+
+#col2 {
+  float: left;
+  width: @left-sidebar-width;
+  position: relative;
+  margin-left: -50%;
+  left: @right-sidebar-width;
+  overflow: hidden;
+  .sidebar-background();
+}
+
+#col3 {
+  float: left;
+  width: @right-sidebar-width;
+  position: relative;
+  overflow: hidden;
+  .sidebar-background(right,@sidebar-shadow-right);
 }
 
 #footer {
